@@ -2,8 +2,10 @@
 // This software is licensed under a Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License
 include <PaletteShapes.scad>
 
-// Base size of the palette in mm
-$base_size = 150;
+// Base width of the palette in mm
+$base_width = 150;
+// Base height of the palette in mm
+$base_height = 150;
 
 // Thickness of the body walls in mm
 $wall_size = 5;
@@ -31,21 +33,22 @@ $magnet_tolerance = 0;
 mid_body_depth = $depth*0.3;
 
 // Magnet pillar values. Offsets by 1mm into the wall.
-magnet_pillar_size = $base_size - $wall_size + 1;
+magnet_pillar_width = $base_width - $wall_size + 1;
+magnet_pillar_height = $base_height - $wall_size + 1;
 
 difference() {
     union(){
         difference() {        
-            palette_shape($base_size - $wall_size - $tolerance, mid_body_depth, $radius);
-            palette_shape($base_size - $wall_size*2, mid_body_depth + 0.1, $radius);
+            palette_shape($base_width - $wall_size - $tolerance, $base_height - $wall_size - $tolerance, mid_body_depth, $radius);
+            palette_shape($base_width - $wall_size*2, $base_height - $wall_size*2, mid_body_depth + 0.1, $radius);
         }
         
         intersection(){ 
-            palette_pillars(magnet_pillar_size, mid_body_depth, $radius);
-            palette_shape($base_size - $wall_size - $tolerance, mid_body_depth, $radius);
+            palette_pillars(magnet_pillar_width, magnet_pillar_height, mid_body_depth, $radius);
+            palette_shape($base_width - $wall_size - $tolerance, $base_height - $wall_size - $tolerance, mid_body_depth, $radius);
         }
     }
     
     // We force a 0.5mm floor for the magnets; Making this taller would make the magnetic catch weaker.
-    translate([0,0,0.5])palette_pillars(magnet_pillar_size - ($magnet_radius + $magnet_tolerance + 1), $magnet_height + $tolerance, $magnet_radius + $magnet_tolerance);
+    translate([0,0,0.5])palette_pillars(magnet_pillar_width - ($magnet_radius + $magnet_tolerance + 1), magnet_pillar_height - ($magnet_radius + $magnet_tolerance + 1), $magnet_height + $tolerance, $magnet_radius + $magnet_tolerance);
 }

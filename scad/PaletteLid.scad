@@ -3,8 +3,10 @@
 
 include <PaletteShapes.scad>
 
-// Base size of the palette in mm
-$base_size = 150;
+// Base width of the palette in mm
+$base_width = 150;
+// Base height of the palette in mm
+$base_height = 150;
 
 // Thickness of the lid walls in mm
 $wall_size = 5;
@@ -20,7 +22,7 @@ $radius = 5;
 
 union(){
     difference() {        
-        palette_shape($base_size + $wall_size, $depth, $radius);
-        translate([0,0,1])palette_shape($base_size + $tolerance, $depth, $radius);
+        palette_shape($base_width + $wall_size, $base_height + $wall_size, $depth, $radius);
+        translate([0,0,1])palette_shape($base_width + $tolerance, $base_height + $tolerance, $depth, $radius);
     }
 }

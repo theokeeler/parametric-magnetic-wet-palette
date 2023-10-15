@@ -1,0 +1,21 @@
+{
+    "parameterSets": {
+        "rectangular": {
+            "$base_height": "100",
+            "$base_width": "150",
+            "$depth": "10",
+            "$radius": "5",
+            "$tolerance": "0.2",
+            "$wall_size": "5"
+        },
+        "square": {
+            "$base_height": "150",
+            "$base_width": "150",
+            "$depth": "10",
+            "$radius": "5",
+            "$tolerance": "0.2",
+            "$wall_size": "5"
+        }
+    },
+    "fileFormatVersion": "1"
+}

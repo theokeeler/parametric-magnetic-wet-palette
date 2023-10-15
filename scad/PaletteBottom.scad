@@ -3,8 +3,10 @@
 
 include <PaletteShapes.scad>
 
-// Base size of the palette in mm
-$base_size = 150;
+// Base width of the palette in mm
+$base_width = 150;
+// Base height of the palette in mm
+$base_height = 150;
 
 // Thickness of the body walls in mm
 $wall_size = 5;
@@ -29,17 +31,18 @@ $magnet_tolerance = 0;
 
 // Internal calculated values
 // Magnet pillar values. Offsets by 1mm into the wall.
-magnet_pillar_size = $base_size - $wall_size + 1;
+magnet_pillar_width = $base_width - $wall_size + 1;
+magnet_pillar_height = $base_height - $wall_size + 1;
 
 union(){
     difference() {        
-        palette_shape($base_size, $depth, $radius);
-        translate([0,0,1])palette_shape($base_size - $wall_size, $depth, $radius);
+        palette_shape($base_width, $base_height, $depth, $radius);
+        translate([0,0,1])palette_shape($base_width - $wall_size, $base_height - $wall_size, $depth, $radius);
     }
     
     
     translate([0,0,-1 * $depth/4])difference() {
-        palette_pillars(magnet_pillar_size, $depth/2, $radius);
-        translate([0,0,$depth/4 - $magnet_height/2])palette_pillars(magnet_pillar_size - ($magnet_radius + $magnet_tolerance + 1), $magnet_height + $tolerance, $magnet_radius + $magnet_tolerance);
+        palette_pillars(magnet_pillar_width, magnet_pillar_height, $depth/2, $radius);
+        translate([0,0,$depth/4 - $magnet_height/2])palette_pillars(magnet_pillar_width - ($magnet_radius + $magnet_tolerance + 1), magnet_pillar_height - ($magnet_radius + $magnet_tolerance + 1), $magnet_height + $tolerance, $magnet_radius + $magnet_tolerance);
     }
 }

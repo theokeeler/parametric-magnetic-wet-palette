@@ -3,16 +3,17 @@
 
 $fn = $preview ? 36 : 360;
 
-module palette_pillars(width, height, corner_radius) {
+module palette_pillars(width, height, depth, corner_radius) {
     half_width = width/2 - corner_radius;
-        translate([-1*half_width, -1*half_width, 0])cylinder(h = height, r = corner_radius, center = true);
-        translate([half_width, -1*half_width, 0])cylinder(h = height, r = corner_radius, center = true);
-        translate([half_width, half_width, 0])cylinder(h = height, r = corner_radius, center = true);
-        translate([-1*half_width, half_width, 0])cylinder(h = height, r = corner_radius, center = true);
+    half_height = height/2 - corner_radius;
+        translate([-1*half_width, -1*half_height, 0])cylinder(h = depth, r = corner_radius, center = true);
+        translate([half_width, -1*half_height, 0])cylinder(h = depth, r = corner_radius, center = true);
+        translate([half_width, half_height, 0])cylinder(h = depth, r = corner_radius, center = true);
+        translate([-1*half_width, half_height, 0])cylinder(h = depth, r = corner_radius, center = true);
 }
 
-module palette_shape(width, height, corner_radius) {
+module palette_shape(width, height, depth, corner_radius) {
     hull() {
-        palette_pillars(width, height, corner_radius);
+        palette_pillars(width, height, depth, corner_radius);
     }
 }
